@@ -3,68 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reikon Studio LN Platform</title>
+<title>Sword Slash Effect</title>
 
 <style>
 body{
 margin:0;
-padding:0;
+font-family:Arial;
 background:#05070c;
-color:#e6f7ff;
-font-family:Arial,sans-serif;
+color:white;
 overflow-x:hidden;
-}
-
-/* STARS */
-.stars{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-.stars span{
-position:absolute;
-width:2px;
-height:2px;
-background:#7fd4ff;
-box-shadow:0 0 10px #1aa3ff;
-animation:fall linear infinite;
-opacity:0;
-}
-
-@keyframes fall{
-0%{transform:translateY(0);opacity:0;}
-10%{opacity:1;}
-100%{transform:translateY(100vh);opacity:0;}
-}
-
-/* HEADER */
-header{
-padding:20px;
-background:rgba(10,18,30,0.9);
-border-bottom:1px solid #1aa3ff33;
-text-align:center;
-}
-
-.logo{
-font-size:32px;
-color:#7fd4ff;
-text-shadow:0 0 15px #1aa3ff;
-}
-
-nav a{
-color:#cfefff;
-margin:0 10px;
-text-decoration:none;
-cursor:pointer;
-font-weight:bold;
 }
 
 /* PAGES */
 .page{
 display:none;
-padding:60px 20px;
+padding:60px;
 text-align:center;
 }
 
@@ -72,231 +25,100 @@ text-align:center;
 display:block;
 }
 
-/* CARD */
-.card{
-background:rgba(15,25,40,0.8);
+/* HEADER */
+header{
 padding:20px;
-border-radius:15px;
-max-width:800px;
-margin:auto;
-border:1px solid #1aa3ff33;
+background:#0b0f1a;
+text-align:center;
 }
 
-/* HERO */
-.hero img{
-width:150px;
-filter:drop-shadow(0 0 15px #1aa3ff);
-animation:float 4s infinite ease-in-out;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-}
-
-.hero h1{
+nav a{
 color:#7fd4ff;
-text-shadow:0 0 15px #1aa3ff;
-}
-
-/* BUTTON */
-.btn{
-display:inline-block;
-margin-top:10px;
-padding:8px 14px;
-background:#7fd4ff;
-color:black;
-border-radius:20px;
+margin:0 10px;
 cursor:pointer;
+text-decoration:none;
 }
 
-/* SWORD CUT + FLAME SYSTEM */
-#transition{
+/* ⚔️ SLASH OVERLAY */
+#slashOverlay{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-z-index:99999;
+z-index:9999;
 pointer-events:none;
 opacity:0;
-overflow:hidden;
 }
 
-.blade{
+#slashOverlay::before{
+content:"";
 position:absolute;
 top:0;
 left:-120%;
 width:120%;
 height:100%;
-background:linear-gradient(120deg,transparent,#7fd4ff,#ffffff,transparent);
+background:linear-gradient(120deg,transparent,#7fd4ff,white,#7fd4ff,transparent);
 transform:skewX(-20deg);
+box-shadow:0 0 25px #1aa3ff;
 }
 
-.leftBurn,.rightBurn{
-position:absolute;
-top:0;
-width:50%;
-height:100%;
-background:black;
-}
-
-.leftBurn{left:0;}
-.rightBurn{right:0;}
-
-.leftBurn::before,
-.rightBurn::before{
-content:"";
-position:absolute;
-bottom:0;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle at 50% 100%, #ff3b00, transparent 60%),
-radial-gradient(circle at 30% 80%, #ff8c00, transparent 60%),
-radial-gradient(circle at 70% 90%, #ff4500, transparent 60%);
-opacity:0;
-}
-
-#transition.active{
+/* ACTIVE ANIMATION */
+#slashOverlay.active{
 opacity:1;
 }
 
-#transition.active .blade{
-animation:slice 0.6s ease forwards;
+#slashOverlay.active::before{
+animation:swordSlash 0.6s ease forwards;
 }
 
-@keyframes slice{
+@keyframes swordSlash{
 0%{left:-120%;}
 100%{left:120%;}
 }
-
-#transition.active .leftBurn{
-animation:burnLeft 1.2s ease forwards;
-}
-
-#transition.active .rightBurn{
-animation:burnRight 1.2s ease forwards;
-}
-
-@keyframes burnLeft{
-0%{background:black;}
-40%{background:#2a0000;}
-100%{transform:translateX(-100%);background:#000;}
-}
-
-@keyframes burnRight{
-0%{background:black;}
-40%{background:#2a0000;}
-100%{transform:translateX(100%);background:#000;}
-}
-
-/* ADMIN */
-textarea,input{
-width:80%;
-margin:10px;
-padding:10px;
-background:#0f1928;
-color:white;
-border:1px solid #1aa3ff33;
-}
-
 </style>
+
 </head>
 
 <body>
 
-<!-- STARS -->
-<div class="stars">
-<span style="left:10%;animation-duration:5s;"></span>
-<span style="left:30%;animation-duration:7s;"></span>
-<span style="left:50%;animation-duration:6s;"></span>
-<span style="left:70%;animation-duration:8s;"></span>
-</div>
+<!-- SLASH EFFECT -->
+<div id="slashOverlay"></div>
 
-<!-- TRANSITION -->
-<div id="transition">
-<div class="blade"></div>
-<div class="leftBurn"></div>
-<div class="rightBurn"></div>
-</div>
-
-<!-- HEADER -->
 <header>
-<div class="logo">REIKON STUDIO</div>
 <nav>
 <a onclick="go('home')">Home</a>
-<a onclick="go('ln')">Light Novels</a>
-<a onclick="go('wall')">Wallpapers</a>
-<a onclick="go('char')">Characters</a>
-<a onclick="go('admin')">Admin</a>
+<a onclick="go('lore')">Lore</a>
 </nav>
 </header>
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 <section id="home" class="page active">
-<div class="hero">
-<img src="file_00000000810c71fa9591436d979c2df6~2.png">
-<h1>Official Reikon Studio</h1>
-</div>
+<h1>Home Page</h1>
+<p>Click navigation to see sword slash transition</p>
 </section>
 
-<!-- LN -->
-<section id="ln" class="page">
-<h2>Light Novels</h2>
-
-<div class="card">
-<h3 id="chTitle">Chapter 1</h3>
-<button class="btn" onclick="openReader('chapter1')">Read</button>
-</div>
-</section>
-
-<!-- READER -->
-<section id="reader" class="page">
-<div class="card">
-<h2 id="rTitle"></h2>
-<p id="rContent"></p>
-<button class="btn" onclick="go('ln')">Back</button>
-</div>
-</section>
-
-<!-- WALLPAPERS -->
-<section id="wall" class="page">
-<h2>Wallpapers</h2>
-<div class="card">Upload system ready (add images here)</div>
-</section>
-
-<!-- CHARACTERS -->
-<section id="char" class="page">
-<h2>Characters</h2>
-<div class="card">Raizen • Aikari • Kaito • Erabus</div>
-</section>
-
-<!-- ADMIN -->
-<section id="admin" class="page">
-<h2>Admin Panel</h2>
-
-<input id="title" placeholder="Chapter Title"><br>
-<textarea id="content" placeholder="Chapter Content"></textarea><br>
-<button class="btn" onclick="addChapter()">Add Chapter</button>
-
-<div id="list"></div>
+<!-- LORE PAGE -->
+<section id="lore" class="page">
+<h1>Lore Page</h1>
+<p>This page opens with sword slash animation</p>
 </section>
 
 <script>
+function swordSlash(){
+let s=document.getElementById("slashOverlay");
+s.classList.add("active");
 
-let chapters={
-chapter1:"Raizen stands in darkness... the cursed blade awakens..."
-};
+setTimeout(()=>{
+s.classList.remove("active");
+},600);
+}
 
 function go(page){
 
-let t=document.getElementById("transition");
-t.classList.add("active");
+swordSlash();
 
 setTimeout(()=>{
-
-t.classList.remove("active");
 
 document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
@@ -304,30 +126,8 @@ p.classList.remove("active");
 
 document.getElementById(page).classList.add("active");
 
-},900);
+},300);
 }
-
-function openReader(id){
-go('reader');
-
-setTimeout(()=>{
-document.getElementById("rTitle").innerText=id;
-document.getElementById("rContent").innerText=chapters[id];
-},1000);
-}
-
-function addChapter(){
-let t=document.getElementById("title").value;
-let c=document.getElementById("content").value;
-
-chapters[t]=c;
-
-document.getElementById("list").innerHTML+=
-"<p>"+t+"</p>";
-
-alert("Chapter added");
-}
-
 </script>
 
 </body>
