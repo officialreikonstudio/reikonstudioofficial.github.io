@@ -3,235 +3,362 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reikon Studio Platform</title>
+<title>Reikon Studio LN Platform</title>
 
 <style>
 body{
 margin:0;
-font-family:Arial;
+padding:0;
 background:#05070c;
 color:#e6f7ff;
+font-family:Arial,sans-serif;
+overflow-x:hidden;
 }
 
-/* NAV */
-header{
-padding:20px;
-background:#0b0f1a;
-text-align:center;
-}
-
-nav a{
-color:#7fd4ff;
-margin:0 10px;
-cursor:pointer;
-text-decoration:none;
-}
-
-/* PAGE */
-.page{display:none;padding:40px;}
-.page.active{display:block;}
-
-/* CARD */
-.card{
-background:rgba(15,25,40,0.85);
-padding:15px;
-border-radius:12px;
-margin:10px 0;
-border:1px solid #1aa3ff33;
-}
-
-/* INPUTS */
-input,textarea,select{
-width:100%;
-margin:8px 0;
-padding:10px;
-background:#0f1928;
-border:1px solid #1aa3ff33;
-color:white;
-}
-
-/* BUTTON */
-button{
-padding:10px 15px;
-background:#7fd4ff;
-border:none;
-cursor:pointer;
-margin-top:10px;
-}
-
-/* CHAT */
-.chatBox{
-height:200px;
-overflow:auto;
-background:#0f1928;
-padding:10px;
-border-radius:10px;
-}
-
-.msg{
-padding:5px;
-border-bottom:1px solid #1aa3ff22;
-}
-
-/* LOGIN SCREEN */
-#loginScreen{
+/* STARS */
+.stars{
 position:fixed;
 width:100%;
 height:100%;
+z-index:-1;
+}
+
+.stars span{
+position:absolute;
+width:2px;
+height:2px;
+background:#7fd4ff;
+box-shadow:0 0 10px #1aa3ff;
+animation:fall linear infinite;
+opacity:0;
+}
+
+@keyframes fall{
+0%{transform:translateY(0);opacity:0;}
+10%{opacity:1;}
+100%{transform:translateY(100vh);opacity:0;}
+}
+
+/* HEADER */
+header{
+padding:20px;
+background:rgba(10,18,30,0.9);
+border-bottom:1px solid #1aa3ff33;
+text-align:center;
+}
+
+.logo{
+font-size:32px;
+color:#7fd4ff;
+text-shadow:0 0 15px #1aa3ff;
+}
+
+nav a{
+color:#cfefff;
+margin:0 10px;
+text-decoration:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* PAGES */
+.page{
+display:none;
+padding:60px 20px;
+text-align:center;
+}
+
+.page.active{
+display:block;
+}
+
+/* CARD */
+.card{
+background:rgba(15,25,40,0.8);
+padding:20px;
+border-radius:15px;
+max-width:800px;
+margin:auto;
+border:1px solid #1aa3ff33;
+}
+
+/* HERO */
+.hero img{
+width:150px;
+filter:drop-shadow(0 0 15px #1aa3ff);
+animation:float 4s infinite ease-in-out;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+.hero h1{
+color:#7fd4ff;
+text-shadow:0 0 15px #1aa3ff;
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+margin-top:10px;
+padding:8px 14px;
+background:#7fd4ff;
+color:black;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* SLASH TRANSITION */
+#transition{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:99999;
+pointer-events:none;
+opacity:0;
+overflow:hidden;
+}
+
+.blade{
+position:absolute;
+top:0;
+left:-120%;
+width:120%;
+height:100%;
+background:linear-gradient(120deg,transparent,#7fd4ff,white,#7fd4ff,transparent);
+transform:skewX(-20deg);
+}
+
+.leftBurn,.rightBurn{
+position:absolute;
+top:0;
+width:50%;
+height:100%;
 background:black;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:9999;
+}
+
+.leftBurn{left:0;}
+.rightBurn{right:0;}
+
+#transition.active{opacity:1;}
+
+#transition.active .blade{
+animation:slice 0.6s ease forwards;
+}
+
+@keyframes slice{
+0%{left:-120%;}
+100%{left:120%;}
+}
+
+#transition.active .leftBurn{
+animation:burnLeft 1.2s ease forwards;
+}
+
+#transition.active .rightBurn{
+animation:burnRight 1.2s ease forwards;
+}
+
+@keyframes burnLeft{
+0%{background:black;}
+100%{transform:translateX(-100%);background:#000;}
+}
+
+@keyframes burnRight{
+0%{background:black;}
+100%{transform:translateX(100%);background:#000;}
+}
+
+/* INPUTS */
+input,textarea{
+width:80%;
+margin:8px;
+padding:10px;
+background:#0f1928;
+color:white;
+border:1px solid #1aa3ff33;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-<h2>Reikon Account Login</h2>
-<input id="email" placeholder="Email">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
+<!-- STARS -->
+<div class="stars">
+<span style="left:10%;animation-duration:5s;"></span>
+<span style="left:30%;animation-duration:7s;"></span>
+<span style="left:50%;animation-duration:6s;"></span>
+<span style="left:70%;animation-duration:8s;"></span>
 </div>
 
+<!-- TRANSITION -->
+<div id="transition">
+<div class="blade"></div>
+<div class="leftBurn"></div>
+<div class="rightBurn"></div>
+</div>
+
+<!-- HEADER -->
 <header>
+<div class="logo">REIKON STUDIO</div>
 <nav>
 <a onclick="go('home')">Home</a>
-<a onclick="go('admin')">Admin</a>
+<a onclick="go('ln')">Light Novels</a>
 <a onclick="go('wall')">Wallpapers</a>
 <a onclick="go('char')">Characters</a>
-<a onclick="go('chat')">Discussion</a>
+<a onclick="go('chat')">Chat</a>
+<a onclick="go('admin')">Admin</a>
+<a onclick="go('login')">Account</a>
 </nav>
 </header>
 
 <!-- HOME -->
 <section id="home" class="page active">
-<h2>Reikon Studio</h2>
+<div class="hero">
+<img src="file_00000000810c71fa9591436d979c2df6~2.png">
+<h1>Official Reikon Studio</h1>
+</div>
 </section>
 
-<!-- ADMIN PANEL -->
-<section id="admin" class="page">
+<!-- LN -->
+<section id="ln" class="page">
+<h2>Light Novels</h2>
 
-<h2>Admin Panel</h2>
+<div class="card">
+<h3>Chapter 1</h3>
+<button class="btn" onclick="openChapter('chapter1')">Read</button>
+</div>
+</section>
 
-<h3>Create Volume</h3>
-<input id="volName" placeholder="Volume Name">
-<input id="volCover" placeholder="Cover Image URL">
-<button onclick="addVolume()">Add Volume</button>
-
-<h3>Create Chapter</h3>
-
-<select id="volumeSelect"></select>
-<input id="chTitle" placeholder="Chapter Title">
-<textarea id="chContent" placeholder="Chapter Content"></textarea>
-<button onclick="addChapter()">Add Chapter</button>
-
-<h3>Character Design</h3>
-<input id="charName" placeholder="Character Name">
-<input id="charImg" placeholder="Image URL">
-<textarea id="charInfo" placeholder="Info"></textarea>
-<button onclick="addCharacter()">Add Character</button>
-
+<!-- READER -->
+<section id="reader" class="page">
+<div class="card">
+<h2 id="rTitle"></h2>
+<p id="rContent"></p>
+<button class="btn" onclick="go('ln')">Back</button>
+</div>
 </section>
 
 <!-- WALLPAPERS -->
 <section id="wall" class="page">
 <h2>Wallpapers</h2>
-<input id="wallImg" placeholder="Wallpaper URL">
-<button onclick="addWallpaper()">Add</button>
-<div id="wallList"></div>
+<div id="wallList" class="card"></div>
 </section>
 
 <!-- CHARACTERS -->
 <section id="char" class="page">
 <h2>Characters</h2>
-<div id="charList"></div>
+<div id="charList" class="card"></div>
 </section>
 
 <!-- CHAT -->
 <section id="chat" class="page">
-<h2>Reader Discussion</h2>
+<h2>Reader Chat</h2>
 
-<div class="chatBox" id="chatBox"></div>
+<div id="chatBox" class="card"></div>
 
-<input id="msg" placeholder="Message">
-<button onclick="sendMsg()">Send</button>
+<input id="msg" placeholder="Write message">
+<button class="btn" onclick="sendMsg()">Send</button>
+</section>
+
+<!-- ADMIN -->
+<section id="admin" class="page">
+<h2>Admin Panel</h2>
+
+<input id="title" placeholder="Chapter Title"><br>
+<textarea id="content" placeholder="Chapter Content"></textarea><br>
+<input id="volume" placeholder="Volume Name"><br>
+
+<button class="btn" onclick="addChapter()">Add Chapter</button>
+
+<hr>
+
+<h3>Add Wallpaper</h3>
+<input id="wallImg" placeholder="Image URL">
+<button class="btn" onclick="addWallpaper()">Add</button>
+
+<h3>Add Character</h3>
+<input id="cName" placeholder="Name"><br>
+<input id="cInfo" placeholder="Info"><br>
+<input id="cImg" placeholder="Image URL"><br>
+<button class="btn" onclick="addCharacter()">Add</button>
+</section>
+
+<!-- LOGIN -->
+<section id="login" class="page">
+<h2>Reikon Account</h2>
+
+<input id="user" placeholder="Username"><br>
+<input id="pass" type="password" placeholder="Password"><br>
+
+<button class="btn" onclick="signup()">Signup</button>
+<button class="btn" onclick="login()">Login</button>
+
+<p id="msgLogin"></p>
 </section>
 
 <script>
 
-let volumes=[];
-let chapters={};
-let characters=[];
+let chapters={
+chapter1:{
+title:"Chapter 1",
+content:"Raizen awakens the cursed blade...",
+volume:"Vol 1"
+}
+};
+
 let wallpapers=[];
+let characters=[];
 let chat=[];
+let users={};
 
-/* LOGIN */
-function login(){
-document.getElementById("loginScreen").style.display="none";
-}
-
-/* NAV */
 function go(page){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(page).classList.add("active");
-}
 
-/* VOLUME */
-function addVolume(){
-let v=document.getElementById("volName").value;
-let c=document.getElementById("volCover").value;
+let t=document.getElementById("transition");
+t.classList.add("active");
 
-volumes.push({v,c});
-updateVolumeSelect();
-alert("Volume added");
-}
+setTimeout(()=>{
 
-function updateVolumeSelect(){
-let s=document.getElementById("volumeSelect");
-s.innerHTML="";
-volumes.forEach((v,i)=>{
-s.innerHTML+=`<option value="${v.v}">${v.v}</option>`;
+t.classList.remove("active");
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
 });
+
+document.getElementById(page).classList.add("active");
+
+},900);
 }
 
 /* CHAPTER */
+function openChapter(id){
+let c=chapters[id];
+
+go('reader');
+
+setTimeout(()=>{
+document.getElementById("rTitle").innerText=c.title+" ("+c.volume+")";
+document.getElementById("rContent").innerText=c.content;
+},1000);
+}
+
+/* ADMIN */
 function addChapter(){
-let v=document.getElementById("volumeSelect").value;
-let t=document.getElementById("chTitle").value;
-let c=document.getElementById("chContent").value;
+let t=document.getElementById("title").value;
+let c=document.getElementById("content").value;
+let v=document.getElementById("volume").value;
 
-if(!chapters[v]) chapters[v]=[];
-chapters[v].push({t,c});
+chapters[t]={
+title:t,
+content:c,
+volume:v
+};
 
-alert("Chapter added under volume "+v);
-}
-
-/* CHARACTER */
-function addCharacter(){
-let n=document.getElementById("charName").value;
-let i=document.getElementById("charImg").value;
-let d=document.getElementById("charInfo").value;
-
-characters.push({n,i,d});
-renderChar();
-}
-
-function renderChar(){
-let box=document.getElementById("charList");
-box.innerHTML="";
-characters.forEach(c=>{
-box.innerHTML+=`
-<div class="card">
-<h3>${c.n}</h3>
-<img src="${c.i}" width="100%">
-<p>${c.d}</p>
-</div>`;
-});
+alert("Chapter added");
 }
 
 /* WALLPAPER */
@@ -240,7 +367,20 @@ let w=document.getElementById("wallImg").value;
 wallpapers.push(w);
 
 document.getElementById("wallList").innerHTML+=
-`<div class="card"><img src="${w}" width="100%"></div>`;
+"<img src='"+w+"' width='200'><br>";
+
+}
+
+/* CHARACTER */
+function addCharacter(){
+characters.push({
+name:document.getElementById("cName").value,
+info:document.getElementById("cInfo").value,
+img:document.getElementById("cImg").value
+});
+
+document.getElementById("charList").innerHTML+=
+"<p>"+document.getElementById("cName").value+"</p>";
 }
 
 /* CHAT */
@@ -249,7 +389,26 @@ let m=document.getElementById("msg").value;
 chat.push(m);
 
 document.getElementById("chatBox").innerHTML+=
-`<div class="msg">${m}</div>`;
+"<p>"+m+"</p>";
+}
+
+/* LOGIN */
+function signup(){
+users[document.getElementById("user").value]=
+document.getElementById("pass").value;
+
+document.getElementById("msgLogin").innerText="Account created";
+}
+
+function login(){
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
+
+if(users[u]==p){
+document.getElementById("msgLogin").innerText="Login success";
+}else{
+document.getElementById("msgLogin").innerText="Invalid login";
+}
 }
 
 </script>
