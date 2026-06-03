@@ -3,32 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Official Reikon Studio</title>
+<title>Reikon Studio Platform</title>
 
 <style>
-*{
+body{
 margin:0;
 padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
 background:#05070c;
 color:#e6f7ff;
-text-align:center;
+font-family:Arial,sans-serif;
 overflow-x:hidden;
 }
 
-/* 🌌 STARS */
+/* STARS */
 .stars{
 position:fixed;
 width:100%;
 height:100%;
-top:0;
-left:0;
 z-index:-1;
-overflow:hidden;
 }
 
 .stars span{
@@ -37,81 +29,131 @@ width:2px;
 height:2px;
 background:#7fd4ff;
 box-shadow:0 0 10px #1aa3ff;
-animation:moveStars linear infinite;
+animation:fall linear infinite;
 opacity:0;
 }
 
-@keyframes moveStars{
-0%{transform:translateY(0); opacity:0;}
+@keyframes fall{
+0%{transform:translateY(0);opacity:0;}
 10%{opacity:1;}
-100%{transform:translateY(100vh); opacity:0;}
+100%{transform:translateY(100vh);opacity:0;}
 }
 
-/* ⚔️ SLASH INTRO */
-.slash{
+/* INTRO CUTSCENE */
+#intro{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:99999;
+transition:1s;
+}
+
+#intro h1{
+color:#7fd4ff;
+text-shadow:0 0 20px #1aa3ff;
+animation:zoom 2s ease;
+}
+
+@keyframes zoom{
+0%{transform:scale(0.5);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+
+/* TRANSITION EFFECT */
+#transition{
 position:fixed;
 top:0;
-left:-120%;
-width:120%;
+left:0;
+width:100%;
 height:100%;
-background:linear-gradient(120deg,transparent,#7fd4ff55,transparent);
-transform:skewX(-20deg);
-z-index:9999;
-animation:slashAnim 1.2s ease-out forwards;
+z-index:99998;
+opacity:0;
+pointer-events:none;
 }
 
-@keyframes slashAnim{
+.slashFx{
+position:absolute;
+width:120%;
+height:100%;
+background:linear-gradient(120deg,transparent,#7fd4ff66,transparent);
+transform:skewX(-20deg);
+left:-120%;
+}
+
+.fireFx{
+position:absolute;
+bottom:0;
+width:100%;
+height:0%;
+background:linear-gradient(to top,#ff3b00,#ff8c00,transparent);
+}
+
+#transition.active{
+opacity:1;
+}
+
+#transition.active .slashFx{
+animation:slashMove 0.8s ease forwards;
+}
+
+#transition.active .fireFx{
+animation:fireRise 1s ease forwards;
+}
+
+@keyframes slashMove{
 0%{left:-120%;}
 100%{left:120%;}
+}
+
+@keyframes fireRise{
+0%{height:0%;}
+100%{height:100%;}
 }
 
 /* HEADER */
 header{
 padding:20px;
-background:rgba(10, 18, 30, 0.9);
+background:rgba(10,18,30,0.9);
 border-bottom:1px solid #1aa3ff33;
-box-shadow:0 0 20px #1aa3ff22;
-backdrop-filter: blur(10px);
+text-align:center;
 }
 
 .logo{
-font-size:34px;
-font-weight:bold;
+font-size:32px;
 color:#7fd4ff;
-text-shadow:0 0 10px #3dbbff, 0 0 20px #1aa3ff;
-letter-spacing:2px;
+text-shadow:0 0 15px #1aa3ff;
 }
 
 /* NAV */
-nav{
-margin-top:15px;
-}
-
 nav a{
 color:#cfefff;
+margin:0 10px;
 text-decoration:none;
-margin:0 12px;
+cursor:pointer;
 font-weight:bold;
-transition:0.3s;
-position:relative;
 }
 
-nav a:hover{
-color:#7fd4ff;
-text-shadow:0 0 10px #1aa3ff;
+/* PAGES */
+.page{
+display:none;
+padding:60px 20px;
+text-align:center;
+}
+
+.page.active{
+display:block;
 }
 
 /* HERO */
-.hero{
-padding:90px 20px;
-background:radial-gradient(circle at top, #0a1a2f, #05070c);
-}
-
 .hero img{
-width:180px;
-margin-bottom:20px;
+width:150px;
 filter:drop-shadow(0 0 15px #1aa3ff);
-animation:float 4s ease-in-out infinite;
+animation:float 4s infinite ease-in-out;
 }
 
 @keyframes float{
@@ -120,247 +162,177 @@ animation:float 4s ease-in-out infinite;
 }
 
 .hero h1{
-font-size:44px;
-margin-bottom:15px;
+color:#7fd4ff;
 text-shadow:0 0 15px #1aa3ff;
 }
 
-.hero p{
-max-width:700px;
-margin:auto;
-line-height:1.8;
-color:#bfe9ff;
-}
-
-/* BUTTON */
-.btn{
-display:inline-block;
-margin-top:30px;
-padding:14px 28px;
-background:linear-gradient(135deg,#7fd4ff,#1aa3ff);
-color:#001018;
-text-decoration:none;
-border-radius:30px;
-font-weight:bold;
-box-shadow:0 0 15px #1aa3ff55;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px #1aa3ff, 0 0 40px #7fd4ff;
-}
-
-/* SECTIONS */
-.section{
-padding:70px 20px;
-opacity:0;
-transform:translateY(40px);
-transition:1s ease;
-}
-
-.section h2{
-text-shadow:0 0 10px #1aa3ff;
-color:#d9f3ff;
-}
-
-/* CARD */
+/* CARDS */
 .card{
-background:rgba(15, 25, 40, 0.8);
-padding:25px;
-max-width:850px;
+background:rgba(15,25,40,0.8);
+padding:20px;
+border-radius:15px;
+max-width:800px;
 margin:auto;
-border-radius:18px;
 border:1px solid #1aa3ff33;
-box-shadow:0 0 20px #1aa3ff22;
-backdrop-filter: blur(10px);
-transition:0.3s;
+}
+
+/* LN + WALLPAPER GRID */
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.item{
+width:250px;
+background:#0f1928;
+padding:15px;
+border-radius:12px;
+border:1px solid #1aa3ff33;
+}
+
+.item img{
+width:100%;
+border-radius:10px;
+}
+
+.download{
+display:inline-block;
+margin-top:10px;
+padding:8px 12px;
+background:#7fd4ff;
+color:black;
+text-decoration:none;
+border-radius:20px;
+font-size:14px;
+}
+
+/* CHARACTER ANIMATION */
+.char{
 opacity:0;
-transform:translateY(40px);
+transform:translateY(50px);
+animation:charIn 1s forwards;
 }
 
-.card:hover{
-transform:translateY(-5px);
-box-shadow:0 0 30px #1aa3ff66;
-}
+.char:nth-child(1){animation-delay:0.2s;}
+.char:nth-child(2){animation-delay:0.4s;}
+.char:nth-child(3){animation-delay:0.6s;}
 
-/* SHOW ANIMATION */
-.show{
-opacity:1 !important;
-transform:translateY(0px) !important;
-}
-
-/* FOOTER */
-footer{
-padding:30px;
-border-top:1px solid #1aa3ff33;
-color:#9fdcff;
-text-shadow:0 0 8px #1aa3ff;
-background:#05070c;
-}
-
-/* RESPONSIVE */
-@media (max-width:768px){
-.hero h1{font-size:30px;}
-.logo{font-size:26px;}
-.hero img{width:140px;}
-.card{margin:20px;}
-nav a{display:inline-block;margin:8px 6px;font-size:14px;}
+@keyframes charIn{
+to{opacity:1;transform:translateY(0);}
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- 🌌 STARS -->
 <div class="stars">
-<span style="left:10%; animation-duration:6s;"></span>
-<span style="left:25%; animation-duration:8s;"></span>
-<span style="left:40%; animation-duration:5s;"></span>
-<span style="left:60%; animation-duration:7s;"></span>
-<span style="left:80%; animation-duration:6s;"></span>
+<span style="left:10%;animation-duration:5s;"></span>
+<span style="left:30%;animation-duration:7s;"></span>
+<span style="left:50%;animation-duration:6s;"></span>
+<span style="left:70%;animation-duration:8s;"></span>
 </div>
 
-<!-- ⚔️ SLASH -->
-<div class="slash"></div>
+<!-- INTRO -->
+<div id="intro">
+<h1>Reikon Studio</h1>
+<button onclick="startSite()">Start Experience</button>
+</div>
+
+<!-- TRANSITION -->
+<div id="transition">
+<div class="slashFx"></div>
+<div class="fireFx"></div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <header>
 <div class="logo">REIKON STUDIO</div>
 <nav>
-<a href="#home">Home</a>
-<a href="#characters">Characters</a>
-<a href="#lore">Lore</a>
-<a href="#contact">Contact</a>
+<a onclick="go('home')">Home</a>
+<a onclick="go('ln')">Light Novels</a>
+<a onclick="go('wallpapers')">Wallpapers</a>
+<a onclick="go('characters')">Characters</a>
 </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="home">
-
-<img src="file_00000000810c71fa9591436d979c2df6~2.png" alt="Logo">
-
+<!-- HOME -->
+<section id="home" class="page active">
+<div class="hero">
+<img src="file_00000000810c71fa9591436d979c2df6~2.png">
 <h1>Official Reikon Studio</h1>
+</div>
+</section>
 
-<p>
-Where legends are forged in darkness and destinies are written in blood, steel and sacrifice.
-</p>
+<!-- LN UPLOAD SECTION -->
+<section id="ln" class="page">
+<h2>Light Novels</h2>
 
-<a href="https://www.royalroad.com/fiction/167162/raizen-the-cursed-prodigy"
-class="btn" target="_blank">
-Read Raizen The Cursed Prodigy
-</a>
+<div class="grid">
+<div class="item">
+<h3>Raizen Chapter 1</h3>
+<p>Read or download</p>
+<a class="download" href="#">Download</a>
+</div>
+</div>
+</section>
 
+<!-- WALLPAPERS -->
+<section id="wallpapers" class="page">
+<h2>Wallpapers</h2>
+
+<div class="grid">
+<div class="item">
+<img src="wall1.jpg">
+<a class="download" href="wall1.jpg" download>Download</a>
+</div>
+
+<div class="item">
+<img src="wall2.jpg">
+<a class="download" href="wall2.jpg" download>Download</a>
+</div>
+</div>
 </section>
 
 <!-- CHARACTERS -->
-<section class="section" id="characters">
+<section id="characters" class="page">
+<h2>Characters</h2>
 
-<div class="card">
-
-<h2>Featured Series</h2>
-<br>
-<h3>⚔️ Raizen The Cursed Prodigy</h3>
-<br>
-<p>A dark fantasy adventure following Raizen Enkaji, a cursed boy whose destiny will shake the heavens.</p>
-
-</div>
-
+<div class="card char">Raizen Enkaji</div>
+<div class="card char">Aikari Mizuno</div>
+<div class="card char">Kaito</div>
 </section>
 
-<!-- LORE -->
-<section class="section" id="lore">
-
-<h2>Anime • Light Novels • Manga</h2>
-<br>
-<p>Official Reikon Studio website. More content coming soon.</p>
-
-</section>
-
-<!-- WORLD LORE -->
-<section class="section">
-
-<h2>World Lore Archives</h2>
-
-<br>
-
-<div class="card">
-
-<h3>🌌 Universal Arts</h3>
-<p>Power governing creation and destruction.</p>
-
-<br>
-
-<h3>🕳️ Void Arts</h3>
-<p>Forbidden techniques of the void.</p>
-
-<br>
-
-<h3>✨ Space Arts</h3>
-<p>Dimensional manipulation abilities.</p>
-
-<br>
-
-<h3>⚔️ Legendary Weapons</h3>
-<p>Zenkai Kurayami, Suigetsu and ancient relics.</p>
-
-<br>
-
-<h3>🏯 Great Clans</h3>
-<p>Enkaji Clan, Mizuno Clan and ancient bloodlines.</p>
-
-</div>
-
-</section>
-
-<!-- MAIN CHARACTERS -->
-<section class="section">
-
-<h2>Main Characters</h2>
-
-<br>
-
-<div class="card">
-
-<h3>⚔️ Raizen Enkaji</h3>
-<p>The Cursed Prodigy</p>
-
-<br>
-
-<h3>🌊 Aikari Mizuno</h3>
-<p>Heir of Mizuno Clan</p>
-
-<br>
-
-<h3>🗡️ Kaito</h3>
-<p>Raizen's closest friend</p>
-
-<br>
-
-<h3>🌑 Erabus</h3>
-<p>Mysterious chained void entity</p>
-
-</div>
-
-</section>
-
-<footer id="contact">
-© 2026 Official Reikon Studio
-</footer>
-
-<!-- JS FADE + START ANIMATION -->
 <script>
-const elements = document.querySelectorAll('.section, .card, .hero');
 
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if(entry.isIntersecting){
-entry.target.classList.add('show');
+function startSite(){
+document.getElementById("intro").style.display="none";
+document.getElementById("bgm").play().catch(()=>{});
 }
-});
-},{threshold:0.15});
 
-elements.forEach(el => observer.observe(el));
+function go(page){
+
+let t=document.getElementById("transition");
+t.classList.add("active");
+
+setTimeout(()=>{
+
+t.classList.remove("active");
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+},1000);
+}
+
 </script>
 
 </body>
