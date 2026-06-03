@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reikon Studio</title>
+<title>Reikon Studio LN Platform</title>
 
 <style>
 body{
@@ -53,7 +53,6 @@ color:#7fd4ff;
 text-shadow:0 0 15px #1aa3ff;
 }
 
-/* NAV */
 nav a{
 color:#cfefff;
 margin:0 10px;
@@ -73,6 +72,16 @@ text-align:center;
 display:block;
 }
 
+/* CARD */
+.card{
+background:rgba(15,25,40,0.8);
+padding:20px;
+border-radius:15px;
+max-width:800px;
+margin:auto;
+border:1px solid #1aa3ff33;
+}
+
 /* HERO */
 .hero img{
 width:150px;
@@ -90,28 +99,18 @@ color:#7fd4ff;
 text-shadow:0 0 15px #1aa3ff;
 }
 
-/* CARD */
-.card{
-background:rgba(15,25,40,0.8);
-padding:20px;
-border-radius:15px;
-max-width:800px;
-margin:auto;
-border:1px solid #1aa3ff33;
-}
-
 /* BUTTON */
-.download{
+.btn{
 display:inline-block;
 margin-top:10px;
-padding:8px 12px;
+padding:8px 14px;
 background:#7fd4ff;
 color:black;
-text-decoration:none;
 border-radius:20px;
+cursor:pointer;
 }
 
-/* TRANSITION FIXED */
+/* SWORD CUT + FLAME SYSTEM */
 #transition{
 position:fixed;
 top:0;
@@ -119,83 +118,95 @@ left:0;
 width:100%;
 height:100%;
 z-index:99999;
-opacity:0;
 pointer-events:none;
+opacity:0;
+overflow:hidden;
 }
 
-.slashFx{
+.blade{
 position:absolute;
+top:0;
+left:-120%;
 width:120%;
 height:100%;
-background:linear-gradient(120deg,transparent,#7fd4ffcc,transparent);
+background:linear-gradient(120deg,transparent,#7fd4ff,#ffffff,transparent);
 transform:skewX(-20deg);
-left:-120%;
-opacity:1;
 }
 
-.fireFx{
+.leftBurn,.rightBurn{
+position:absolute;
+top:0;
+width:50%;
+height:100%;
+background:black;
+}
+
+.leftBurn{left:0;}
+.rightBurn{right:0;}
+
+.leftBurn::before,
+.rightBurn::before{
+content:"";
 position:absolute;
 bottom:0;
 width:100%;
-height:0%;
-background:linear-gradient(to top,#ff3b00,#ff8c00,transparent);
-opacity:1;
+height:100%;
+background:
+radial-gradient(circle at 50% 100%, #ff3b00, transparent 60%),
+radial-gradient(circle at 30% 80%, #ff8c00, transparent 60%),
+radial-gradient(circle at 70% 90%, #ff4500, transparent 60%);
+opacity:0;
 }
 
 #transition.active{
 opacity:1;
 }
 
-#transition.active .slashFx{
-animation:slashMove 0.8s ease forwards;
+#transition.active .blade{
+animation:slice 0.6s ease forwards;
 }
 
-#transition.active .fireFx{
-animation:fireRise 1s ease forwards;
-}
-
-@keyframes slashMove{
+@keyframes slice{
 0%{left:-120%;}
 100%{left:120%;}
 }
 
-@keyframes fireRise{
-0%{height:0%;}
-100%{height:100%;}
+#transition.active .leftBurn{
+animation:burnLeft 1.2s ease forwards;
 }
 
-/* READER PAGE */
-#reader{
-background:#05070c;
-min-height:100vh;
-padding:40px;
-text-align:left;
-display:none;
+#transition.active .rightBurn{
+animation:burnRight 1.2s ease forwards;
 }
 
-.chapterBox{
-max-width:800px;
-margin:auto;
-background:rgba(15,25,40,0.8);
-padding:20px;
-border-radius:12px;
+@keyframes burnLeft{
+0%{background:black;}
+40%{background:#2a0000;}
+100%{transform:translateX(-100%);background:#000;}
+}
+
+@keyframes burnRight{
+0%{background:black;}
+40%{background:#2a0000;}
+100%{transform:translateX(100%);background:#000;}
+}
+
+/* ADMIN */
+textarea,input{
+width:80%;
+margin:10px;
+padding:10px;
+background:#0f1928;
+color:white;
 border:1px solid #1aa3ff33;
 }
 
-.backBtn{
-display:inline-block;
-margin-bottom:20px;
-padding:8px 14px;
-background:#7fd4ff;
-color:black;
-border-radius:20px;
-cursor:pointer;
-}
 </style>
 </head>
 
 <body>
 
+<!-- STARS -->
 <div class="stars">
 <span style="left:10%;animation-duration:5s;"></span>
 <span style="left:30%;animation-duration:7s;"></span>
@@ -205,17 +216,20 @@ cursor:pointer;
 
 <!-- TRANSITION -->
 <div id="transition">
-<div class="slashFx"></div>
-<div class="fireFx"></div>
+<div class="blade"></div>
+<div class="leftBurn"></div>
+<div class="rightBurn"></div>
 </div>
 
+<!-- HEADER -->
 <header>
 <div class="logo">REIKON STUDIO</div>
 <nav>
 <a onclick="go('home')">Home</a>
 <a onclick="go('ln')">Light Novels</a>
-<a onclick="go('wallpapers')">Wallpapers</a>
-<a onclick="go('characters')">Characters</a>
+<a onclick="go('wall')">Wallpapers</a>
+<a onclick="go('char')">Characters</a>
+<a onclick="go('admin')">Admin</a>
 </nav>
 </header>
 
@@ -232,93 +246,48 @@ cursor:pointer;
 <h2>Light Novels</h2>
 
 <div class="card">
-<h3>Raizen The Cursed Prodigy</h3>
-
-<p>Chapter 1</p>
-
-<!-- FIXED READ BUTTON -->
-<button class="download" onclick="openReader('chapter1')">
-Read
-</button>
-
+<h3 id="chTitle">Chapter 1</h3>
+<button class="btn" onclick="openReader('chapter1')">Read</button>
 </div>
 </section>
 
-<!-- READER PAGE -->
-<section id="reader">
-
-<div class="chapterBox">
-
-<div class="backBtn" onclick="back()">Back</div>
-
-<h2 id="chapterTitle">Chapter</h2>
-
-<p id="chapterContent">
-Loading chapter...
-</p>
-
+<!-- READER -->
+<section id="reader" class="page">
+<div class="card">
+<h2 id="rTitle"></h2>
+<p id="rContent"></p>
+<button class="btn" onclick="go('ln')">Back</button>
 </div>
-
 </section>
 
 <!-- WALLPAPERS -->
-<section id="wallpapers" class="page">
+<section id="wall" class="page">
 <h2>Wallpapers</h2>
-
-<div class="card">
-<p>Upload your wallpapers here</p>
-</div>
+<div class="card">Upload system ready (add images here)</div>
 </section>
 
 <!-- CHARACTERS -->
-<section id="characters" class="page">
+<section id="char" class="page">
 <h2>Characters</h2>
+<div class="card">Raizen • Aikari • Kaito • Erabus</div>
+</section>
 
-<div class="card">
-Raizen Enkaji<br>
-Aikari Mizuno<br>
-Kaito<br>
-Erabus
-</div>
+<!-- ADMIN -->
+<section id="admin" class="page">
+<h2>Admin Panel</h2>
+
+<input id="title" placeholder="Chapter Title"><br>
+<textarea id="content" placeholder="Chapter Content"></textarea><br>
+<button class="btn" onclick="addChapter()">Add Chapter</button>
+
+<div id="list"></div>
 </section>
 
 <script>
 
-let chapters = {
-chapter1: `
-Raizen stood in the ruins of the Enkaji castle...
-The cursed blade awakened within silence...
-Darkness responded to his presence...
-`
+let chapters={
+chapter1:"Raizen stands in darkness... the cursed blade awakens..."
 };
-
-function openReader(id){
-
-let t=document.getElementById("transition");
-t.classList.add("active");
-
-setTimeout(()=>{
-
-t.classList.remove("active");
-
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
-});
-
-document.getElementById("reader").style.display="block";
-
-document.getElementById("chapterTitle").innerText=id;
-document.getElementById("chapterContent").innerText=chapters[id];
-
-},900);
-}
-
-function back(){
-
-document.getElementById("reader").style.display="none";
-document.getElementById("ln").classList.add("active");
-
-}
 
 function go(page){
 
@@ -338,7 +307,28 @@ document.getElementById(page).classList.add("active");
 },900);
 }
 
+function openReader(id){
+go('reader');
+
+setTimeout(()=>{
+document.getElementById("rTitle").innerText=id;
+document.getElementById("rContent").innerText=chapters[id];
+},1000);
+}
+
+function addChapter(){
+let t=document.getElementById("title").value;
+let c=document.getElementById("content").value;
+
+chapters[t]=c;
+
+document.getElementById("list").innerHTML+=
+"<p>"+t+"</p>";
+
+alert("Chapter added");
+}
+
 </script>
 
 </body>
-  </html>
+</html>
