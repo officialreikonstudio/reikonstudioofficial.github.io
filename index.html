@@ -3,282 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reikon Studio Secure LN Platform</title>
+<title>REIKONSTUDIO</title>
 
 <style>
+
 body{
 margin:0;
-background:#05070c;
-color:#e6f7ff;
-font-family:Arial;
-overflow-x:hidden;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#ffffff,#eaf8ff,#b8e8ff);
+color:#16324F;
+padding-bottom:80px;
 }
 
-/* HEADER */
 header{
+display:flex;
+justify-content:space-between;
+align-items:center;
 padding:15px;
-background:#0b0f1a;
-text-align:center;
-border-bottom:1px solid #1aa3ff33;
+backdrop-filter:blur(10px);
+background:rgba(255,255,255,.6);
+position:sticky;
+top:0;
 }
 
 .logo{
 font-size:28px;
-color:#7fd4ff;
-text-shadow:0 0 10px #1aa3ff;
-}
-
-/* NAV */
-nav a{
-color:#cfefff;
-margin:0 10px;
-cursor:pointer;
-text-decoration:none;
 font-weight:bold;
 }
 
-/* PAGES */
-.page{
-display:none;
-padding:50px 20px;
+.icons{
+display:flex;
+gap:15px;
+font-size:22px;
+}
+
+.hero{
+height:250px;
+display:flex;
+justify-content:center;
+align-items:center;
 text-align:center;
-}
-.page.active{display:block;}
-
-/* CARD */
-.card{
-background:#0f1928;
-padding:15px;
-border-radius:10px;
-margin:10px auto;
-max-width:800px;
-border:1px solid #1aa3ff33;
-}
-
-/* INPUT */
-input,textarea,select{
-width:80%;
-margin:8px;
-padding:10px;
-background:#0b0f1a;
-color:white;
-border:1px solid #1aa3ff33;
-}
-
-/* BUTTON */
-.btn{
-padding:8px 14px;
-background:#7fd4ff;
-border:none;
+font-size:28px;
+font-weight:bold;
+background:#7FDFFF;
 border-radius:20px;
+margin:15px;
+}
+
+.card{
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(15px);
+padding:15px;
+margin:15px;
+border-radius:20px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+.currency{
+display:flex;
+justify-content:space-around;
+font-size:18px;
+}
+
+.assistant{
+position:fixed;
+right:15px;
+bottom:100px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.assistant button{
+width:60px;
+height:60px;
+border:none;
+border-radius:50%;
+font-size:28px;
+background:#7FDFFF;
 cursor:pointer;
 }
 
-/* WALL FIX */
-.wallImg{
-width:200px;
-margin:10px;
-border-radius:10px;
+nav{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:12px 0;
+border-top:1px solid #ccc;
 }
 
-/* CHARACTER */
-.charCard{
-display:inline-block;
-width:200px;
-margin:10px;
-padding:10px;
-background:#0b0f1a;
-border-radius:10px;
-border:1px solid #1aa3ff33;
+nav a{
+text-decoration:none;
+font-size:22px;
 }
 
-/* ADMIN HIDE */
-#adminPanel{
-display:none;
-}
-
-/* LANGUAGE */
-.langBar{
-margin:10px;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">REIKON STUDIO</div>
+<div class="logo">🌌 REIKONSTUDIO</div>
 
-<nav>
-<a onclick="go('home')">Home</a>
-<a onclick="go('ln')">LN</a>
-<a onclick="go('wall')">Wallpapers</a>
-<a onclick="go('char')">Characters</a>
-<a onclick="go('chat')">Chat</a>
-<a onclick="go('login')">Account</a>
-<a onclick="adminCheck()">Admin</a>
-</nav>
-
-<div class="langBar">
-<select onchange="setLang(this.value)">
-<option value="en">English</option>
-<option value="jp">Japanese</option>
-<option value="hi">Hindi</option>
-</select>
+<div class="icons">
+<span>⚙️</span>
+<span>🔍</span>
+<span>👤</span>
 </div>
-
 </header>
 
-<!-- HOME -->
-<section id="home" class="page active">
-<h2 id="t_home">Home</h2>
-<p id="p_home">Welcome to Reikon Studio</p>
-</section>
-
-<!-- LN -->
-<section id="ln" class="page">
-<h2>Light Novels</h2>
-<div class="card">
-<h3>Chapter 1</h3>
-<button class="btn">Read</button>
+<div class="hero" id="slider">
+🌌 Welcome to REIKONSTUDIO
 </div>
-</section>
 
-<!-- WALL -->
-<section id="wall" class="page">
-<h2>Wallpapers</h2>
-<div id="wallList"></div>
-</section>
+<div class="card">
+<h2>🪙 Currency</h2>
 
-<!-- CHAR -->
-<section id="char" class="page">
-<h2>Characters</h2>
-<div id="charList"></div>
-</section>
+<div class="currency">
+<div>🥇 REIKON Token<br>250</div>
+<div>🥈 Gold Coin<br>1500</div>
+<div>🥉 Silver Coin<br>5000</div>
+</div>
+</div>
 
-<!-- CHAT -->
-<section id="chat" class="page">
-<h2>Chat</h2>
-<div id="chatBox"></div>
-<input id="msg">
-<button class="btn" onclick="sendMsg()">Send</button>
-</section>
+<div class="card">
+<h2>📖 Continue Reading</h2>
+<p>Latest manga and novels.</p>
+</div>
 
-<!-- LOGIN -->
-<section id="login" class="page">
-<h2>Login</h2>
-<input id="user">
-<input id="pass" type="password">
-<button class="btn" onclick="login()">Login</button>
-<p id="msg"></p>
-</section>
+<div class="card">
+<h2>📜 Lore Hub</h2>
+<p>Characters, Weapons, Stories, Clans and Creatures.</p>
+</div>
 
-<!-- ADMIN (HIDDEN FIREWALL) -->
-<section id="adminPanel" class="page">
-<h2>ADMIN PANEL</h2>
+<div class="card">
+<h2>👤 Profile</h2>
 
-<h3>Add Chapter</h3>
-<input id="chTitle">
-<textarea id="chContent"></textarea>
-<input id="vol">
-<button class="btn" onclick="addChapter()">Upload</button>
+<p><b>Username:</b> Maddy</p>
+<p><b>Rank:</b> Lore Seeker</p>
+<p><b>Bio:</b> Exploring the secrets of REIKON.</p>
 
-<h3>Wallpaper</h3>
-<input id="wall">
-<button class="btn" onclick="addWall()">Add</button>
+</div>
 
-<h3>Character</h3>
-<input id="cName">
-<input id="cInfo">
-<input id="cImg">
-<button class="btn" onclick="addChar()">Add</button>
-</section>
+<div class="card">
+<h2>👑 Admin System</h2>
+
+<p>👑 admin</p>
+<p>👑 admin2</p>
+
+</div>
+
+<div class="assistant">
+<button onclick="alert('🦉 Let us start.')">🦉</button>
+<button onclick="alert('🐉 Let us begin.')">🐉</button>
+</div>
+
+<nav>
+<a href="#">🏠</a>
+<a href="#">📜</a>
+<a href="#">👤</a>
+<a href="#">💬</a>
+<a href="#">🛒</a>
+</nav>
 
 <script>
 
-let users={};
-let chat=[];
-let adminUser="raizen";
-let adminPass="1234";
+const slides=[
+"🌌 Welcome to REIKONSTUDIO",
+"📚 Read Amazing Manga",
+"📖 Explore Novels",
+"📜 Discover Lore Hub",
+"🪙 Earn REIKON Tokens"
+];
 
-/* NAV */
-function go(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-}
+let i=0;
 
-/* ADMIN FIREWALL */
-function adminCheck(){
-let u=prompt("Admin Username:");
-let p=prompt("Password:");
-
-if(u===adminUser && p===adminPass){
-document.getElementById("adminPanel").style.display="block";
-go("adminPanel");
-}else{
-alert("Access Denied - Firewall Active");
-}
-}
-
-/* LOGIN */
-function login(){
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
-
-if(users[u]==p){
-document.getElementById("msg").innerText="Login OK";
-}else{
-document.getElementById("msg").innerText="Wrong";
-}
-}
-
-/* WALL FIX */
-function addWall(){
-let w=document.getElementById("wall").value;
-document.getElementById("wallList").innerHTML+=
-`<img class="wallImg" src="${w}">`;
-}
-
-/* CHARACTER FIX */
-function addChar(){
-let n=document.getElementById("cName").value;
-let i=document.getElementById("cInfo").value;
-let img=document.getElementById("cImg").value;
-
-document.getElementById("charList").innerHTML+=`
-<div class="charCard">
-<img src="${img}" style="width:100%;border-radius:8px;">
-<h4>${n}</h4>
-<p>${i}</p>
-</div>
-`;
-}
-
-/* CHAT */
-function sendMsg(){
-let m=document.getElementById("msg").value;
-chat.push(m);
-document.getElementById("chatBox").innerHTML+=`<p>${m}</p>`;
-}
-
-/* LANGUAGE SYSTEM */
-function setLang(l){
-
-if(l==="en"){
-document.getElementById("t_home").innerText="Home";
-document.getElementById("p_home").innerText="Welcome to Reikon Studio";
-}
-
-if(l==="hi"){
-document.getElementById("t_home").innerText="होम";
-document.getElementById("p_home").innerText="Reikon Studio में आपका स्वागत है";
-}
-
-if(l==="jp"){
-document.getElementById("t_home").innerText="ホーム";
-document.getElementById("p_home").innerText="レイコンスタジオへようこそ";
-}
-}
+setInterval(()=>{
+i=(i+1)%slides.length;
+document.getElementById("slider").innerHTML=slides[i];
+},3000);
 
 </script>
 
