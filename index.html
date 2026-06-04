@@ -8,6 +8,10 @@
 
 <style>
 
+/* ===================== */
+/* BASIC RESET */
+/* ===================== */
+
 *{
 margin:0;
 padding:0;
@@ -16,674 +20,58 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#050814;
+background: radial-gradient(circle at top, #0b1020, #050814, #02030a);
 color:white;
 overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* ===================== */
+/* COSMIC BACKGROUND */
+/* ===================== */
 
-header{
+.stars, .nebula{
 position:fixed;
 top:0;
 left:0;
 width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 8%;
-background:rgba(5,8,20,0.85);
-backdrop-filter:blur(10px);
-z-index:1000;
-border-bottom:1px solid rgba(127,212,255,0.15);
+height:100%;
+pointer-events:none;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:1.3rem;
-font-weight:bold;
-color:#7fd4ff;
-text-shadow:0 0 15px #7fd4ff;
+.stars{
+z-index:-2;
 }
 
-.logo img{
-width:42px;
-height:42px;
-object-fit:contain;
-}
-
-nav{
-display:flex;
-gap:25px;
-}
-
-nav a{
-text-decoration:none;
-color:white;
-transition:.3s;
-font-size:.95rem;
-}
-
-nav a:hover{
-color:#7fd4ff;
-text-shadow:0 0 12px #7fd4ff;
-}
-
-.account-btn{
-padding:10px 18px;
-border-radius:25px;
-background:#7fd4ff;
-color:#050814;
-font-weight:bold;
-text-decoration:none;
-}
-
-.menu-btn{
-display:none;
-font-size:28px;
-cursor:pointer;
-}
-
-/* HERO */
-
-.hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:120px 8% 50px;
-position:relative;
-}
-
-.hero-content{
-text-align:center;
-max-width:900px;
-z-index:2;
-}
-
-.hero h1{
-font-size:4rem;
-margin-bottom:20px;
-color:#7fd4ff;
-text-shadow:
-0 0 10px #7fd4ff,
-0 0 25px #7fd4ff;
-}
-
-.hero p{
-font-size:1.3rem;
-line-height:1.8;
-color:#d9f4ff;
-margin-bottom:35px;
-}
-
-.hero-buttons{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.btn-primary{
-padding:14px 30px;
-border-radius:35px;
-background:#7fd4ff;
-color:#050814;
-text-decoration:none;
-font-weight:bold;
-transition:.3s;
-}
-
-.btn-primary:hover{
-transform:translateY(-3px);
-box-shadow:0 0 20px #7fd4ff;
-}
-
-.btn-secondary{
-padding:14px 30px;
-border-radius:35px;
-border:1px solid #7fd4ff;
-color:#7fd4ff;
-text-decoration:none;
-transition:.3s;
-}
-
-.btn-secondary:hover{
-background:#7fd4ff;
-color:#050814;
-}
-
-/* CHARACTER PLACEHOLDERS */
-
-.raizen-art{
+.stars::before{
+content:"";
 position:absolute;
-right:3%;
-bottom:0;
-width:350px;
-opacity:.85;
+width:200%;
+height:200%;
+background-image:
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(#7fd4ff 1px, transparent 1px);
+background-size:60px 60px, 120px 120px;
+animation:moveStars 80s linear infinite;
+opacity:0.35;
 }
 
-.aikari-art{
-position:absolute;
-left:3%;
-bottom:0;
-width:280px;
-opacity:.65;
+@keyframes moveStars{
+from{transform:translateY(0);}
+to{transform:translateY(-1000px);}
 }
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-nav{
-display:none;
+.nebula{
+z-index:-3;
+background: radial-gradient(circle at 30% 30%, rgba(127,212,255,0.18), transparent 60%),
+            radial-gradient(circle at 70% 70%, rgba(0,150,255,0.12), transparent 60%);
 }
-
-.account-btn{
-display:none;
-}
-
-.menu-btn{
-display:block;
-}
-
-.hero h1{
-font-size:2.5rem;
-}
-
-.hero p{
-font-size:1rem;
-}
-
-.raizen-art{
-width:220px;
-opacity:.25;
-}
-
-.aikari-art{
-width:180px;
-opacity:.20;
-}
-}
-
-</style>
-</head>
-<body>
-
-<header>
-
-<div class="logo">
-
-<!-- LOGO IMAGE -->
-<img src="logo.png" alt="Logo">
-
-<span>ReikonStudioOfficial</span>
-
-</div>
-
-<nav>
-
-<a href="#">Home</a>
-<a href="#">Light Novels</a>
-<a href="#">Manga</a>
-<a href="#">Characters</a>
-<a href="#">Lore</a>
-<a href="#">Wallpapers</a>
-<a href="#">Discussion</a>
-
-</nav>
-
-<a href="#" class="account-btn">Account</a>
-
-<div class="menu-btn">☰</div>
-
-</header>
-
-<section class="hero">
-
-<!-- AIKARI IMAGE -->
-<img src="aikari.png" class="aikari-art" alt="Aikari">
-
-<div class="hero-content">
-
-<h1>REIKONSTUDIOOFFICIAL</h1>
-
-<p>
-
-Stories Beyond Worlds.<br>
-Legends Beyond Time.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="#" class="btn-primary">
-
-Read Raizen
-
-</a>
-
-<a href="#" class="btn-secondary">
-
-Explore Lore
-
-</a>
-
-</div>
-
-</div>
-
-<!-- ADULT RAIZEN IMAGE -->
-<img src="raizen.png" class="raizen-art" alt="Raizen">
-
-</section>
-
-</body>
-</html>
-<!-- FEATURED SERIES -->
-
-<section class="featured-series">
-
-<h2>Featured Series</h2>
-
-<div class="series-card">
-
-<div class="series-banner">
-
-<img src="raizen-banner.jpg" alt="Raizen Banner">
-
-</div>
-
-<div class="series-content">
-
-<img src="volume1-cover.jpg"
-class="series-cover"
-alt="Volume Cover">
-
-<div class="series-info">
-
-<h3>Raizen: The Cursed Prodigy</h3>
-
-<p>
-
-A dark fantasy journey through cursed bloodlines,
-forgotten powers, legendary weapons, and a destiny
-that could reshape existence itself.
-
-</p>
-
-<a href="#" class="read-now">
-
-Read Now
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- LATEST UPDATES -->
-
-<section class="updates">
-
-<h2>Latest Updates</h2>
-
-<div class="updates-grid">
-
-<div class="update-card">
-
-<span class="update-type">
-
-Chapter Release
-
-</span>
-
-<h3>Chapter 8: The Black Pulse</h3>
-
-<p>2 Days Ago</p>
-
-</div>
-
-<div class="update-card">
-
-<span class="update-type">
-
-Wallpaper
-
-</span>
-
-<h3>Raizen Cosmic Wallpaper</h3>
-
-<p>4 Days Ago</p>
-
-</div>
-
-<div class="update-card">
-
-<span class="update-type">
-
-Character Update
-
-</span>
-
-<h3>Erabus Profile Added</h3>
-
-<p>1 Week Ago</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- MANGA SECTION -->
-
-<section class="manga-preview">
-
-<h2>Manga</h2>
-
-<div class="manga-card">
-
-<h3>Coming Soon</h3>
-
-<p>
-
-The visual journey of Reikon Studio
-will begin in the future.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- QUICK ACCESS -->
-
-<section class="quick-access">
-
-<h2>Explore The Universe</h2>
-
-<div class="quick-grid">
-
-<a href="#" class="quick-card">
-
-<h3>Characters</h3>
-
-<p>Meet the heroes and legends.</p>
-
-</a>
-
-<a href="#" class="quick-card">
-
-<h3>Lore Archive</h3>
-
-<p>Discover the world's history.</p>
-
-</a>
-
-<a href="#" class="quick-card">
-
-<h3>Wallpapers</h3>
-
-<p>Download premium artwork.</p>
-
-</a>
-
-<a href="#" class="quick-card">
-
-<h3>Discussion</h3>
-
-<p>Join the community.</p>
-
-</a>
-
-</div>
-
-</section>
-
-<style>
-
-/* FEATURED SERIES */
-
-.featured-series{
-padding:100px 8%;
-}
-
-.featured-series h2{
-text-align:center;
-font-size:2.5rem;
-margin-bottom:40px;
-color:#7fd4ff;
-}
-
-.series-card{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(127,212,255,0.15);
-border-radius:20px;
-overflow:hidden;
-}
-
-.series-banner img{
-width:100%;
-height:350px;
-object-fit:cover;
-}
-
-.series-content{
-display:flex;
-gap:30px;
-padding:30px;
-align-items:center;
-flex-wrap:wrap;
-}
-
-.series-cover{
-width:220px;
-border-radius:15px;
-}
-
-.series-info{
-flex:1;
-}
-
-.series-info h3{
-font-size:2rem;
-margin-bottom:20px;
-}
-
-.series-info p{
-line-height:1.8;
-margin-bottom:25px;
-}
-
-.read-now{
-display:inline-block;
-padding:14px 28px;
-background:#7fd4ff;
-color:#050814;
-text-decoration:none;
-border-radius:30px;
-font-weight:bold;
-}
-
-/* UPDATES */
-
-.updates{
-padding:100px 8%;
-}
-
-.updates h2{
-text-align:center;
-font-size:2.5rem;
-margin-bottom:40px;
-color:#7fd4ff;
-}
-
-.updates-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.update-card{
-background:rgba(255,255,255,0.03);
-padding:25px;
-border-radius:20px;
-border:1px solid rgba(127,212,255,0.15);
-}
-
-.update-type{
-color:#7fd4ff;
-font-size:.85rem;
-}
-
-/* MANGA */
-
-.manga-preview{
-padding:100px 8%;
-text-align:center;
-}
-
-.manga-preview h2{
-font-size:2.5rem;
-margin-bottom:35px;
-color:#7fd4ff;
-}
-
-.manga-card{
-max-width:700px;
-margin:auto;
-padding:40px;
-border-radius:20px;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(127,212,255,0.15);
-}
-
-/* QUICK ACCESS */
-
-.quick-access{
-padding:100px 8%;
-}
-
-.quick-access h2{
-text-align:center;
-font-size:2.5rem;
-margin-bottom:40px;
-color:#7fd4ff;
-}
-
-.quick-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
-
-.quick-card{
-background:rgba(255,255,255,0.03);
-padding:30px;
-border-radius:20px;
-text-decoration:none;
-color:white;
-border:1px solid rgba(127,212,255,0.15);
-transition:.3s;
-}
-
-.quick-card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 25px rgba(127,212,255,.35);
-}
-
-.quick-card h3{
-color:#7fd4ff;
-margin-bottom:15px;
-}
-
-@media(max-width:900px){
-
-.series-content{
-justify-content:center;
-text-align:center;
-}
-
-.series-cover{
-width:180px;
-}
-
-}
-
-  </style>
-  <!-- ===================== -->
-<!-- CINEMATIC LOADING SCREEN -->
-<!-- ===================== -->
-
-<div id="loading-screen">
-  <div class="loader-content">
-    <div class="logo-glow">REIKON</div>
-    <p>Loading Universe...</p>
-  </div>
-</div>
-
-<!-- ===================== -->
-<!-- COSMIC BACKGROUND -->
-<!-- ===================== -->
-
-<div class="stars"></div>
-<div class="nebula"></div>
-
-<!-- ===================== -->
-<!-- MOBILE MENU -->
-<!-- ===================== -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-  <a href="#">Home</a>
-  <a href="#">Light Novels</a>
-  <a href="#">Manga</a>
-  <a href="#">Characters</a>
-  <a href="#">Lore</a>
-  <a href="#">Wallpapers</a>
-  <a href="#">Discussion</a>
-  <a href="#">Account</a>
-
-</div>
-
-<script>
-
-// MOBILE MENU TOGGLE
-const menuBtn = document.querySelector(".menu-btn");
-const mobileMenu = document.getElementById("mobileMenu");
-
-menuBtn.addEventListener("click", () => {
-  mobileMenu.classList.toggle("active");
-});
-
-// LOADING SCREEN REMOVE
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loading-screen");
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    setTimeout(() => loader.style.display = "none", 800);
-  }, 1500);
-});
-
-</script>
-
-<style>
 
 /* ===================== */
 /* LOADING SCREEN */
 /* ===================== */
 
-#loading-screen{
+#loading{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
 background:#050814;
@@ -691,17 +79,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:9999;
-transition:0.8s;
 }
 
-.loader-content{
-text-align:center;
-}
-
-.logo-glow{
-font-size:3rem;
+#loading h1{
 color:#7fd4ff;
-text-shadow:0 0 20px #7fd4ff, 0 0 40px #7fd4ff;
+text-shadow:0 0 20px #7fd4ff;
 animation:pulse 1.5s infinite;
 }
 
@@ -712,130 +94,500 @@ animation:pulse 1.5s infinite;
 }
 
 /* ===================== */
-/* STAR BACKGROUND */
+/* NAVBAR */
 /* ===================== */
 
-.stars{
+header{
 position:fixed;
+top:0;
 width:100%;
-height:100%;
-background:transparent;
-z-index:-2;
-overflow:hidden;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 8%;
+background:rgba(5,8,20,0.7);
+backdrop-filter:blur(10px);
+z-index:1000;
+border-bottom:1px solid rgba(127,212,255,0.2);
 }
 
-.stars::before{
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+color:#7fd4ff;
+font-weight:bold;
+}
+
+.logo img{
+width:40px;
+height:40px;
+}
+
+nav{
+display:flex;
+gap:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#7fd4ff;
+}
+
+.menu{
+display:none;
+font-size:28px;
+cursor:pointer;
+}
+
+/* ===================== */
+/* HERO */
+/* ===================== */
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+padding:120px 20px;
+}
+
+.hero h1{
+font-size:3.5rem;
+color:#7fd4ff;
+text-shadow:0 0 20px #7fd4ff;
+}
+
+.hero p{
+margin-top:15px;
+font-size:1.2rem;
+color:#cfefff;
+}
+
+.btns{
+margin-top:30px;
+display:flex;
+gap:15px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:12px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.btn.primary{
+background:#7fd4ff;
+color:#050814;
+}
+
+.btn.secondary{
+border:1px solid #7fd4ff;
+color:#7fd4ff;
+}
+
+/* CHARACTERS */
+
+.raizen{
+position:absolute;
+right:5%;
+bottom:0;
+width:300px;
+opacity:0.9;
+}
+
+.aikari{
+position:absolute;
+left:5%;
+bottom:0;
+width:250px;
+opacity:0.7;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media(max-width:900px){
+
+nav{display:none;}
+.menu{display:block;}
+
+.hero h1{font-size:2.2rem;}
+
+.raizen{width:180px; opacity:0.3;}
+.aikari{width:160px; opacity:0.3;}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+<h1>REIKON STUDIO</h1>
+</div>
+
+<!-- BACKGROUND -->
+<div class="stars"></div>
+<div class="nebula"></div>
+
+<!-- NAV -->
+<header>
+
+<div class="logo">
+<img src="file_00000000810c71fa9591436d979c2df6~2.png">
+ReikonStudioOfficial
+</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">LN</a>
+<a href="#">Characters</a>
+<a href="#">Lore</a>
+<a href="#">Wallpapers</a>
+</nav>
+
+<div class="menu">☰</div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+<img class="aikari" src="IMG-20260407-WA0004.jpg" alt="Aikari">
+<img class="raizen" src="IMG-20260407-WA0003.jpg" alt="Raizen">
+
+<div>
+
+<h1>REIKONSTUDIOOFFICIAL</h1>
+
+<p>Stories Beyond Worlds. Legends Beyond Time.</p>
+
+<div class="btns">
+<a class="btn primary" href="#">Read Raizen</a>
+<a class="btn secondary" href="#">Explore Lore</a>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* loading screen */
+window.onload = () => {
+setTimeout(()=>{
+document.getElementById("loading").style.display="none";
+},1500);
+};
+
+</script>
+
+</body>
+  </html>
+  /* ===================== */
+/* SECTIONS GENERAL */
+/* ===================== */
+
+section{
+padding:80px 8%;
+text-align:center;
+}
+
+section h2{
+color:#7fd4ff;
+font-size:2.2rem;
+margin-bottom:40px;
+text-shadow:0 0 10px #7fd4ff;
+}
+
+/* ===================== */
+/* FEATURED SERIES */
+/* ===================== */
+
+.featured .series-card{
+display:flex;
+gap:30px;
+align-items:center;
+background:rgba(255,255,255,0.03);
+padding:20px;
+border-radius:20px;
+border:1px solid rgba(127,212,255,0.2);
+flex-wrap:wrap;
+}
+
+.series-img{
+width:220px;
+border-radius:15px;
+}
+
+.series-info{
+flex:1;
+text-align:left;
+}
+
+/* ===================== */
+/* UPDATES */
+/* ===================== */
+
+.update-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.update{
+background:rgba(255,255,255,0.03);
+padding:20px;
+border-radius:15px;
+border:1px solid rgba(127,212,255,0.15);
+}
+
+/* ===================== */
+/* MANGA */
+/* ===================== */
+
+.manga-box{
+background:rgba(255,255,255,0.03);
+padding:40px;
+border-radius:20px;
+border:1px solid rgba(127,212,255,0.2);
+}
+
+/* ===================== */
+/* QUICK ACCESS */
+/* ===================== */
+
+.quick-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px;
+}
+
+.card{
+padding:20px;
+background:rgba(127,212,255,0.05);
+border:1px solid rgba(127,212,255,0.2);
+border-radius:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 20px rgba(127,212,255,0.3);
+}
+<!-- ===================== -->
+<!-- FEATURED SERIES -->
+<!-- ===================== -->
+
+<section class="featured">
+
+<h2>Featured Series</h2>
+
+<div class="series-card">
+
+<img src="IMG-20260407-WA0003.jpg" class="series-img">
+
+<div class="series-info">
+
+<h3>Raizen: The Cursed Prodigy</h3>
+
+<p>
+A dark fantasy story of Raizen Enkaji, a cursed prodigy
+whose destiny will reshape the universe itself.
+</p>
+
+<a href="#" class="btn primary">Read Now</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================== -->
+<!-- LATEST UPDATES -->
+<!-- ===================== -->
+
+<section class="updates">
+
+<h2>Latest Updates</h2>
+
+<div class="update-grid">
+
+<div class="update">
+<h4>Chapter 8 Released</h4>
+<p>The Black Pulse Arc continues</p>
+</div>
+
+<div class="update">
+<h4>New Wallpaper</h4>
+<p>Raizen Cosmic Form Added</p>
+</div>
+
+<div class="update">
+<h4>Character Update</h4>
+<p>Erabus profile unlocked</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================== -->
+<!-- MANGA SECTION -->
+<!-- ===================== -->
+
+<section class="manga">
+
+<h2>Manga</h2>
+
+<div class="manga-box">
+<h3>Coming Soon</h3>
+<p>Visual adaptation of Raizen universe is under development.</p>
+</div>
+
+</section>
+
+<!-- ===================== -->
+<!-- QUICK ACCESS -->
+<!-- ===================== -->
+
+<section class="quick">
+
+<h2>Explore Universe</h2>
+
+<div class="quick-grid">
+
+<div class="card">Characters</div>
+<div class="card">Lore Archive</div>
+<div class="card">Wallpapers</div>
+<div class="card">Discussion</div>
+
+</div>
+
+</section>
+<!-- ===================== -->
+<!-- FIXED STAR ANIMATION -->
+<!-- ===================== -->
+
+<style>
+
+.stars::after{
 content:"";
 position:absolute;
 width:200%;
 height:200%;
-background-image:radial-gradient(white 1px, transparent 1px);
-background-size:50px 50px;
-animation:moveStars 60s linear infinite;
-opacity:0.15;
+background-image:
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(#7fd4ff 1px, transparent 1px);
+background-size:80px 80px, 140px 140px;
+animation:starsMove 120s linear infinite;
+opacity:0.25;
 }
 
-@keyframes moveStars{
+@keyframes starsMove{
 from{transform:translateY(0);}
-to{transform:translateY(-1000px);}
+to{transform:translateY(-1200px);}
 }
 
 /* ===================== */
-/* NEBULA EFFECT */
-/* ===================== */
-
-.nebula{
-position:fixed;
-width:100%;
-height:100%;
-background:radial-gradient(circle at 30% 30%, rgba(127,212,255,0.15), transparent 60%),
-            radial-gradient(circle at 70% 70%, rgba(0,150,255,0.10), transparent 60%);
-z-index:-3;
-}
-
-/* ===================== */
-/* MOBILE MENU */
-/* ===================== */
-
-.mobile-menu{
-position:fixed;
-top:0;
-right:-100%;
-width:100%;
-height:100vh;
-background:rgba(5,8,20,0.98);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:25px;
-transition:0.4s;
-z-index:2000;
-}
-
-.mobile-menu a{
-color:white;
-text-decoration:none;
-font-size:1.5rem;
-transition:0.3s;
-}
-
-.mobile-menu a:hover{
-color:#7fd4ff;
-}
-
-.mobile-menu.active{
-right:0;
-}
-
-/* ===================== */
-/* SCROLL ANIMATION */
+/* SCROLL FADE IN FIX */
 /* ===================== */
 
 section{
 opacity:0;
 transform:translateY(40px);
-animation:fadeIn 1s forwards;
+transition:1s ease;
 }
 
-section:nth-child(2){animation-delay:0.2s;}
-section:nth-child(3){animation-delay:0.4s;}
-section:nth-child(4){animation-delay:0.6s;}
-
-@keyframes fadeIn{
-to{
+section.show{
 opacity:1;
 transform:translateY(0);
 }
+
+/* ===================== */
+/* MOBILE MENU FIX */
+/* ===================== */
+
+.menu.active + nav{
+display:flex;
+flex-direction:column;
+position:absolute;
+top:70px;
+right:8%;
+background:rgba(5,8,20,0.95);
+padding:20px;
+border-radius:15px;
 }
 
 /* ===================== */
-/* FOOTER */
+/* LOADING SMOOTH FADE */
 /* ===================== */
 
-footer{
-padding:60px 8%;
-text-align:center;
-border-top:1px solid rgba(127,212,255,0.2);
-margin-top:80px;
+#loading{
+transition:0.8s ease;
 }
 
-footer h3{
-color:#7fd4ff;
-margin-bottom:10px;
+/* ===================== */
+/* GLOW IMPROVEMENT */
+/* ===================== */
+
+h1,h2{
+text-shadow:0 0 15px rgba(127,212,255,0.6);
 }
 
-footer p{
-color:#aaa;
-font-size:0.9rem;
-}
+</style>
 
-/* MOBILE FIX */
+<!-- ===================== -->
+<!-- JAVASCRIPT EFFECTS -->
+<!-- ===================== -->
 
-@media(max-width:900px){
-.logo-glow{
-font-size:2rem;
-}
-}
+<script>
 
-  </style>
+/* LOADING SCREEN */
+window.onload = () => {
+setTimeout(()=>{
+document.getElementById("loading").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("loading").style.display="none";
+},800);
+},1200);
+};
+
+/* SCROLL ANIMATION */
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+sections.forEach(sec => {
+const top = sec.getBoundingClientRect().top;
+if(top < window.innerHeight - 100){
+sec.classList.add("show");
+}
+});
+});
+
+/* MOBILE MENU TOGGLE */
+const menu = document.querySelector(".menu");
+const nav = document.querySelector("nav");
+
+menu.addEventListener("click", () => {
+menu.classList.toggle("active");
+nav.classList.toggle("active");
+});
+
+</script>
